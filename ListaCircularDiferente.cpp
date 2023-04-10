@@ -134,17 +134,40 @@ class ListaCircular
 				cout<<"Valor nao existe na lista! ";
 			}
 			else {
-				while(c->obterValor() != v) {
+				int contv = 0;
+				for (int i = 0; i < qtd; i++) {
+					if(c->obterValor() == v) contv++;
 					c = c->obterProx();
 				}
-				if(c->obterProx()) c->obterProx()->setAnt(c->obterAnt());
-				if(c->obterAnt()) c->obterAnt()->setProx(c->obterProx());
-				delete c;
-				qtd--;
-				if(qtd == 0) cabeca = NULL;
-				
+				while(contv--) {
+					c = cabeca;
+					while(c->obterValor() != v) {
+						c = c->obterProx();
+					}
+					if(c == cabeca && qtd == 1) {
+						cabeca = NULL;
+						cauda = NULL;
+					}
+					else if(c == cabeca) {
+						cabeca = cabeca->obterProx();
+						cabeca->setAnt(cauda);
+						cauda->setProx(cabeca);
+					}
+					else if(c == cauda) {
+						cauda = cauda->obterAnt();
+						cauda->setProx(cabeca);
+						cabeca->setAnt(cauda);
+					}
+					else {
+						c->obterAnt()->setProx(c->obterProx());
+						c->obterProx()->setAnt(c->obterAnt());
+					}
+					delete c;
+					qtd--;
+				}
 			}
 		}
+
 
 		void percorrer	(int v) {
 			No* c = cabeca;
@@ -232,7 +255,7 @@ int main(){
 				cout<< "Qual numero deseja remover da lista? ";
 			}
 			l->remover(a);
-			if(l->existe(a)) cout <<"\nElemento " << a << " removido com sucesso!" << endl;
+			cout <<"\nElemento " << a << " removido com sucesso!" << endl;
 			sleep(1);
 			return main();
 
