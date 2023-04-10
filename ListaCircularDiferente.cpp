@@ -129,9 +129,9 @@ class ListaCircular
 		}
 		void remover(int v){
 			No* c = cabeca;
-			if(vazia()) cout << "Lista vazia!\n" << endl;
-			else if(!existe(v)){
-				cout<<"Valor nao existe na lista! ";
+			
+			if(!existe(v)){
+				cout<<"Valor nao existe na lista!" << endl;
 			}
 			else {
 				int contv = 0;
@@ -165,6 +165,7 @@ class ListaCircular
 					delete c;
 					qtd--;
 				}
+				cout <<"\nElemento " << v << " removido com sucesso!" << endl;
 			}
 		}
 
@@ -245,7 +246,11 @@ int main(){
 			return main();
 
 		case 2:
-
+			if(l->vazia()) {
+				cout << "\nLista Vazia!" << endl;
+				sleep(1);
+				return main();
+			}
 			cout << "Qual numero deseja remover da lista? ";
 			while(!(cin>>a)) {
 				cin.clear();
@@ -255,12 +260,16 @@ int main(){
 				cout<< "Qual numero deseja remover da lista? ";
 			}
 			l->remover(a);
-			cout <<"\nElemento " << a << " removido com sucesso!" << endl;
+			
 			sleep(1);
 			return main();
 
 		case 3:
-
+			if(l->vazia()) {
+				cout << "\nLista Vazia!" << endl;
+				sleep(1);
+				return main();
+			}
 			cout << "Digite um elemento a ser procurado na lista: ";
 			while(!(cin>>a)) {
 				cin.clear();
